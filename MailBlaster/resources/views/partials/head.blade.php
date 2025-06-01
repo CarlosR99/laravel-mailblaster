@@ -11,4 +11,25 @@
 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
-@fluxAppearance
+
+<script>
+    // Aplica el tema según localStorage o preferencia del sistema
+    (function() {
+        let theme = localStorage.theme;
+        if (!theme) {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    })();
+
+    // Cambia el tema al presionar el botón
+    window.toggleTheme = function() {
+        const html = document.documentElement;
+        const isDark = html.classList.toggle('dark');
+        localStorage.theme = isDark ? 'dark' : 'light';
+    }
+</script>

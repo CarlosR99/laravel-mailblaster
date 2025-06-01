@@ -125,6 +125,17 @@
             </flux:dropdown>
         </flux:header>
 
+        <aside>
+            <ul>
+                <li><a href="{{ route('admin.dashboard') }}" class="block py-2 px-4 hover:bg-gray-700">Dashboard</a></li>
+                <li><a href="{{ route('campaigns.index') }}" class="block py-2 px-4 hover:bg-gray-700">Campañas</a></li>
+                <li><a href="{{ route('users.index') }}" class="block py-2 px-4 hover:bg-gray-700">Usuarios</a></li>
+                <li><a href="{{ route('reports.index') }}" class="block py-2 px-4 hover:bg-gray-700">Reportes</a></li>
+                <li><a href="{{ route('templates.index') }}" class="block py-2 px-4 hover:bg-gray-700">Plantillas</a></li>
+            </ul>
+            <button class="md:hidden mt-4 text-sm text-gray-400 hover:text-white" @click="sidebarOpen = false">Cerrar menú</button>
+        </aside>
+
         {{ $slot }}
 
         @fluxScripts

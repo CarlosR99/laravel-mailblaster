@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@theme {
+  /* Aquí puedes poner tus variables personalizadas si las tienes */
+}
+
+@utility gap-2 {
+  gap: 0.5rem;
+}
