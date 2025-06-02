@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Settings;
 
+use App\Models\SystemLog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password as PasswordRule;
@@ -32,8 +33,18 @@ class Password extends Component
             throw $e;
         }
 
-        Auth::user()->update([
+        $user = Auth::user();
+        $user->update([
             'password' => Hash::make($validated['password']),
+        ]);
+
+        // Log de cambio de contraseña
+        SystemLog::create([
+            'user_id' => $user->id,
+            'entity_type' => 'user',
+            'entity_id' => $user->id,
+            'action' => 'password_changed',
+            'description' => 'Contraseña cambiada para: ' . $user->email,
         ]);
 
         $this->reset('current_password', 'password', 'password_confirmation');

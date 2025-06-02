@@ -1,66 +1,359 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 @import '../../vendor/livewire/flux/dist/flux.css';
+@import "./tailwind.config.css";
 
-@source '../views';
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
-@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
-
-@custom-variant dark (&:where(.dark, .dark *));
-
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-
-    --color-zinc-50: #fafafa;
-    --color-zinc-100: #f5f5f5;
-    --color-zinc-200: #e5e5e5;
-    --color-zinc-300: #d4d4d4;
-    --color-zinc-400: #a3a3a3;
-    --color-zinc-500: #737373;
-    --color-zinc-600: #525252;
-    --color-zinc-700: #404040;
-    --color-zinc-800: #262626;
-    --color-zinc-900: #171717;
-    --color-zinc-950: #0a0a0a;
-
-    --color-accent: var(--color-neutral-800);
-    --color-accent-content: var(--color-neutral-800);
-    --color-accent-foreground: var(--color-white);
+html, body {
+    height: 100%;
+    font-family: 'Inter', system-ui, sans-serif;
 }
 
-@layer theme {
-    .dark {
-        --color-accent: var(--color-white);
-        --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-neutral-800);
-    }
+body {
+    @apply flex flex-col overflow-hidden bg-slate-50;
 }
 
-@layer base {
-
-    *,
-    ::after,
-    ::before,
-    ::backdrop,
-    ::file-selector-button {
-        border-color: var(--color-gray-200, currentColor);
-    }
+/* Componentes Mejorados */
+.card {
+    @apply bg-white rounded-xl shadow-sm p-5 mb-4 border border-slate-100 transition-all hover:shadow-md;
 }
 
-[data-flux-field]:not(ui-radio, ui-checkbox) {
-    @apply grid gap-2;
+.stat-card {
+    @apply bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-xs p-5 text-center border border-slate-200;
 }
 
-[data-flux-label] {
-    @apply  !mb-0 !leading-tight;
+.badge {
+    @apply inline-block px-2.5 py-0.5 text-xs font-medium rounded-full;
 }
 
-input:focus[data-flux-control],
-textarea:focus[data-flux-control],
-select:focus[data-flux-control] {
-    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+.badge-active {
+    @apply bg-emerald-100 text-emerald-800;
 }
 
-/* \[:where(&)\]:size-4 {
-    @apply size-4;
-} */
+.badge-completed {
+    @apply bg-blue-100 text-blue-800;
+}
+
+.badge-scheduled {
+    @apply bg-amber-100 text-amber-800;
+}
+
+/* Scroll Moderno */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-slate-100;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400;
+}
+
+/* Mejoras Tipográficas */
+h1, h2, h3 {
+    @apply font-bold text-slate-800 tracking-tight;
+}
+
+h1 {
+    @apply text-2xl;
+}
+
+h2 {
+    @apply text-xl;
+}
+
+h3 {
+    @apply text-lg;
+}
+
+/* Transiciones Suaves */
+a, button {
+    @apply transition-colors duration-200;
+}
+
+/* Footer Estilizado */
+footer {
+    @apply sticky bottom-0 z-10 bg-indigo-700 text-white py-3 px-4 shadow-lg;
+}
+
+/* Nuevos Componentes */
+.btn-primary {
+    @apply bg-indigo-600 text-white px-4 py-2.5 rounded-lg font-medium flex items-center justify-center hover:bg-indigo-700 transition-colors shadow-sm;
+}
+
+.btn-outline {
+    @apply border border-slate-300 text-slate-600 px-4 py-2.5 rounded-lg font-medium flex items-center justify-center hover:bg-slate-50 transition-colors;
+}
+
+.table-header {
+    @apply bg-slate-100 text-slate-600 font-semibold text-left;
+}
+
+.table-row {
+    @apply border-b border-slate-100 hover:bg-slate-50 transition-colors;
+}
+
+.table-cell {
+    @apply px-5 py-3.5 text-sm text-slate-700;
+}
+
+.status-badge {
+    @apply px-2.5 py-0.5 rounded-full text-xs font-medium inline-flex items-center;
+}
+
+.file-upload {
+    @apply w-full p-3 border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors;
+}
+
+.form-label {
+    @apply block mb-2 font-medium text-slate-700;
+}
+
+.form-input {
+    @apply w-full p-3 border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors;
+}
+
+.form-select {
+    @apply w-full p-3 border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors;
+}
+
+/* Tablas Mejoradas */
+.table-container {
+    @apply bg-white rounded-xl shadow-sm overflow-hidden border border-slate-100;
+}
+
+.table-responsive {
+    @apply overflow-x-auto min-w-full;
+}
+
+/* Nuevos componentes para usuarios */
+.user-avatar {
+    @apply w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-800 font-medium text-sm;
+}
+
+.user-status {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.user-status-active {
+    @apply bg-emerald-100 text-emerald-800;
+}
+
+.user-status-inactive {
+    @apply bg-slate-100 text-slate-800;
+}
+
+.modal-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50;
+}
+
+.modal-content {
+    @apply bg-white rounded-xl shadow-xl p-6 w-full max-w-lg relative;
+}
+
+.modal-close {
+    @apply absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-2xl transition-colors;
+}
+
+/* Formularios mejorados */
+.password-strength {
+    @apply h-1 mt-1 rounded-full;
+}
+
+.password-strength-weak {
+    @apply bg-red-500;
+}
+
+.password-strength-medium {
+    @apply bg-amber-500;
+}
+
+.password-strength-strong {
+    @apply bg-emerald-500;
+}
+
+/* Componentes específicos para reportes */
+.report-summary {
+    @apply grid grid-cols-2 md:grid-cols-4 gap-5 mb-8;
+}
+
+.report-metric {
+    @apply bg-white rounded-xl p-5 border border-slate-100 shadow-sm text-center flex flex-col items-center;
+    min-height: 140px;
+}
+
+.report-metric-icon {
+    @apply mb-3 p-3 rounded-full w-12 h-12 flex items-center justify-center;
+    background-color: rgba(99, 102, 241, 0.1); /* indigo-100 con opacidad */
+}
+
+.report-metric-value {
+    @apply text-2xl font-bold text-slate-800 mb-1;
+}
+
+.report-metric-label {
+    @apply text-sm text-slate-500;
+}
+
+/* Específicos para cada tipo de métrica */
+.report-metric-sent .report-metric-icon {
+    @apply bg-emerald-100 text-emerald-600;
+}
+
+.report-metric-failed .report-metric-icon {
+    @apply bg-rose-100 text-rose-600;
+}
+
+.report-metric-total .report-metric-icon {
+    @apply bg-indigo-100 text-indigo-600;
+}
+
+.report-metric-status .report-metric-icon {
+    @apply bg-amber-100 text-amber-600;
+}
+
+/* Ajustes para la tabla */
+.detail-table {
+    @apply w-full;
+}
+
+.detail-table th {
+    @apply px-5 py-3 text-left text-sm font-semibold text-slate-700 bg-slate-100;
+}
+
+.detail-table td {
+    @apply px-5 py-3.5 text-sm text-slate-700 border-t border-slate-100;
+}
+
+/* Componentes específicos para plantillas */
+.template-card {
+    @apply bg-white rounded-xl shadow-sm p-5 mb-4 border border-slate-100 transition-all hover:shadow-md;
+}
+
+.template-editor {
+    @apply border border-slate-300 rounded-lg bg-white mt-1 overflow-hidden;
+}
+
+.template-editor trix-toolbar {
+    @apply bg-slate-100 border-b border-slate-300;
+}
+
+.template-editor trix-editor {
+    @apply min-h-[300px] p-4;
+}
+
+.template-actions {
+    @apply flex justify-end gap-3 pt-4 border-t border-slate-100 mt-6;
+}
+
+.template-search {
+    @apply flex items-center gap-3 mb-6;
+}
+
+.template-search-input {
+    @apply w-full p-3 border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors flex-1 pl-10;
+}
+
+.template-search-icon {
+    @apply absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400;
+}
+
+.template-status {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.template-status-active {
+    @apply bg-emerald-100 text-emerald-800;
+}
+
+.template-status-inactive {
+    @apply bg-slate-100 text-slate-800;
+}
+
+/* Mejoras específicas para la tabla de logs */
+.log-table-container {
+    @apply bg-white rounded-xl shadow-sm overflow-hidden border border-slate-100;
+}
+
+.log-table {
+    @apply min-w-full divide-y divide-slate-200;
+}
+
+.log-table-header {
+    @apply bg-slate-100 text-slate-700 font-semibold text-left text-sm;
+}
+
+.log-table-row {
+    @apply hover:bg-slate-50 transition-colors;
+}
+
+.log-table-cell {
+    @apply px-4 py-3 text-sm text-slate-700;
+}
+
+.log-table-cell:first-child {
+    @apply pl-5;
+}
+
+.log-table-cell:last-child {
+    @apply pr-5;
+}
+
+/* Mejoras para el buscador */
+.search-container {
+    @apply relative w-full max-w-xs;
+}
+
+.search-input {
+    @apply w-full p-3 border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors flex-1 pl-10;
+}
+
+.search-icon {
+    @apply absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400;
+}
+
+/* Ajustes para la tabla responsiva */
+.log-table-responsive {
+    @apply overflow-x-auto;
+}
+
+.log-table-responsive table {
+    @apply min-w-[800px] md:min-w-full;
+}
+
+/* Mejoras para el estado vacío */
+.log-empty-state {
+    @apply text-center text-slate-400 py-8 px-5;
+}
+
+/* Ajustes para la paginación */
+.log-pagination {
+    @apply mt-6 flex justify-center;
+}
+
+[x-cloak] { display: none !important; }
+
+/* Footer mejorado */
+.footer {
+    @apply sticky bottom-0 z-10 bg-indigo-700 text-white py-3 px-4 shadow-lg;
+}
+
+.footer-content {
+    @apply text-center text-sm;
+}
+
+.footer-text {
+    @apply text-white;
+}
+
+.footer-version {
+    @apply text-indigo-100 block md:inline mt-1 md:mt-0;
+}

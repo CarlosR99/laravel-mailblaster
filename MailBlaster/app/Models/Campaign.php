@@ -10,8 +10,9 @@ class Campaign extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
-        'template',
+        'template_id',
         'image_path',
         'status',
         'total_emails',
@@ -22,5 +23,10 @@ class Campaign extends Model
     public function recipients()
     {
         return $this->hasMany(EmailRecipient::class);
+    }
+
+    public function template()
+    {
+        return $this->belongsTo(\App\Models\Template::class);
     }
 }

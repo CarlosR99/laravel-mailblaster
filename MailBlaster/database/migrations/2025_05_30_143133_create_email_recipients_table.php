@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('campaign_id')->constrained()->onDelete('cascade');
             $table->string('email');
             $table->enum('status', ['pending', 'sent', 'failed'])->default('pending');
-            $table->string('error_message')->nullable();
+            $table->text('error_message')->nullable();
             $table->timestamp('sent_at')->nullable();
             $table->timestamps();
 

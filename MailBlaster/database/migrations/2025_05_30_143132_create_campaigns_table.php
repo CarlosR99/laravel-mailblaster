@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->enum('template', ['plantilla1', 'plantilla2', 'custom_image']);
             $table->string('image_path')->nullable();
             $table->enum('status', ['pending', 'processing', 'finished'])->default('pending');
             $table->integer('total_emails')->default(0);
