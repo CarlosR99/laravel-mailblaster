@@ -14,7 +14,7 @@ class CampaignController extends Controller
 {
     public function index()
     {
-        $campaigns = Campaign::latest()->get();
+        $campaigns = Campaign::with('template')->get();
         return view('campaigns.index', compact('campaigns'));
     }
 

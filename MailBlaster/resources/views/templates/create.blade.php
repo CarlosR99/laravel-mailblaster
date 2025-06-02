@@ -1,33 +1,58 @@
 @extends('layouts.admin')
 
 @section('admin-content')
-    <h1 class="text-2xl font-bold mb-4">Crear plantilla</h1>
-    <div class="bg-white rounded shadow p-4">
+<div class="container mx-auto px-4 py-6">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-800">Crear Nueva Plantilla</h1>
+            <p class="text-slate-500 mt-1">Diseña una nueva plantilla de correo electrónico</p>
+        </div>
+        <a href="{{ route('templates.index') }}" class="btn-outline">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Volver a plantillas
+        </a>
+    </div>
+
+    <div class="card">
         <form action="{{ route('templates.store') }}" method="POST">
             @csrf
-            <div class="mb-4">
-                <label for="name" class="block mb-1 font-semibold">Nombre</label>
-                <input id="name" type="text" name="name" class="w-full rounded border-gray-300" required autocomplete="off">
+            <div class="space-y-5">
+                <div>
+                    <label class="form-label">Nombre de la plantilla</label>
+                    <input type="text" name="name" class="form-input" required autocomplete="off">
+                </div>
+                
+                <div>
+                    <label class="form-label">Asunto del correo (opcional)</label>
+                    <input type="text" name="subject" class="form-input" autocomplete="off">
+                    <p class="text-sm text-slate-500 mt-1">Este será el asunto que verán los destinatarios</p>
+                </div>
+                
+                <div>
+                    <label class="form-label">Contenido del correo</label>
+                    <input id="content" type="hidden" name="content">
+                    <div class="template-editor">
+                        <trix-editor input="content"></trix-editor>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-2">
+                        Puedes usar negritas, listas, enlaces e imágenes. Si pegas imágenes, asegúrate que sean accesibles para los destinatarios.
+                    </p>
+                </div>
             </div>
-            <div class="mb-4">
-                <label for="subject" class="block mb-1 font-semibold">Asunto (opcional)</label>
-                <input id="subject" type="text" name="subject" class="w-full rounded border-gray-300" autocomplete="off">
-            </div>
-            <div class="mb-4">
-                <label for="content" class="block mb-1 font-semibold">Contenido</label>
-                <input id="content" type="hidden" name="content">
-                <trix-editor input="content"></trix-editor>
-                <small class="text-gray-500">
-                    Escribe el contenido del correo. Puedes usar negritas, listas, enlaces e imágenes.<br>
-                    Si pegas imágenes, asegúrate que sean accesibles para los destinatarios.
-                </small>
-            </div>
-            <div class="flex justify-end">
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Crear plantilla</button>
+            
+            <div class="template-actions">
+                <button type="submit" class="btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    Crear plantilla
+                </button>
             </div>
         </form>
     </div>
-@endsection
+</div>
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/trix@2.0.0/dist/trix.umd.min.js"></script>
@@ -65,3 +90,4 @@ function uploadAttachment(attachment) {
 }
 </script>
 @endpush
+@endsection

@@ -48,5 +48,14 @@ class SendCampaignEmailJob implements ShouldQueue
             ]);
             $this->campaign->increment('failed_emails');
         }
+
+        // Verificar si ya no quedan destinatarios pendientes y finalizar campaña
+        if (
+            $this->campaign->recipients()->where('status', 'pending')->count() === 0 &&
+            $this->campaign->status !== 'finished'
+        ) {
+            $this->campaign->status = 'finished';
+            $this->campaign->save();
+        }
     }
 }

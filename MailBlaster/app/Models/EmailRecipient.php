@@ -17,6 +17,10 @@ class EmailRecipient extends Model
         'sent_at',
     ];
 
+    protected $casts = [
+        'sent_at' => 'datetime',
+    ];
+
     public function campaign()
     {
         return $this->belongsTo(Campaign::class);
