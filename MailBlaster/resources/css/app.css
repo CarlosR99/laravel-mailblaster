@@ -357,3 +357,146 @@ footer {
 .footer-version {
     @apply text-indigo-100 block md:inline mt-1 md:mt-0;
 }
+
+/* auth-styles.css */
+.auth-container {
+    @apply min-h-screen flex items-center justify-center bg-slate-50 p-4;
+}
+
+.auth-card {
+    @apply w-full max-w-md bg-white rounded-xl shadow-md p-8 border border-slate-100;
+}
+
+.auth-header {
+    @apply mb-6 text-center;
+}
+
+.auth-title {
+    @apply text-2xl font-bold text-slate-800 mb-2;
+}
+
+.auth-description {
+    @apply text-slate-600 text-sm;
+}
+
+.auth-form {
+    @apply space-y-4;
+}
+
+.auth-footer {
+    @apply mt-6 text-center text-sm text-slate-500;
+}
+
+.auth-link {
+    @apply text-indigo-600 font-medium hover:text-indigo-700;
+}
+
+.auth-button {
+    @apply w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors;
+}
+
+.auth-input-container {
+    @apply space-y-1;
+}
+
+.auth-input-label {
+    @apply block text-sm font-medium text-slate-700;
+}
+
+.auth-input {
+    @apply w-full px-3 py-2.5 border border-slate-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-colors;
+}
+
+.auth-checkbox {
+    @apply flex items-center;
+}
+
+.auth-checkbox-input {
+    @apply h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded;
+}
+
+.auth-checkbox-label {
+    @apply ml-2 block text-sm text-slate-700;
+}
+
+.auth-session-status {
+    @apply mb-4 text-center text-sm font-medium text-green-600;
+}
+
+.auth-error-message {
+    @apply text-sm text-red-600 mt-1;
+}
+
+
+/* Auth Styles */
+.auth-container {
+    @apply min-h-screen bg-slate-50 flex items-center justify-center p-4;
+}
+
+.auth-card {
+    @apply w-full max-w-md bg-white rounded-xl shadow-sm p-8 border border-slate-200;
+}
+
+.auth-header {
+    @apply text-center mb-6;
+}
+
+.auth-title {
+    @apply text-2xl font-bold text-slate-800 mb-2;
+}
+
+.auth-description {
+    @apply text-sm text-slate-600;
+}
+
+.auth-form {
+    @apply space-y-4;
+}
+
+.auth-footer {
+    @apply mt-6 text-center text-sm text-slate-600;
+}
+
+.auth-link {
+    @apply font-medium text-indigo-600 hover:text-indigo-500;
+}
+
+.auth-button {
+    @apply w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors;
+}
+
+.auth-input-container {
+    @apply space-y-1;
+}
+
+.auth-input-label {
+    @apply block text-sm font-medium text-slate-700;
+}
+
+.auth-input {
+    @apply block w-full rounded-lg border border-slate-300 p-2.5 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500;
+}
+
+.password-toggle {
+    @apply absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer;
+}
+
+.auth-checkbox {
+    @apply flex items-center;
+}
+
+.auth-checkbox-input {
+    @apply h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500;
+}
+
+.auth-checkbox-label {
+    @apply ml-2 block text-sm text-slate-700;
+}
+
+.auth-session-status {
+    @apply mb-4 text-center text-sm font-medium text-green-600;
+}
+
+.auth-error-message {
+    @apply mt-1 text-sm text-red-600;
+}

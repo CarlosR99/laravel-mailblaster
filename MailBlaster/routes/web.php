@@ -13,12 +13,17 @@ Route::get('/', function () {
     return redirect()->route('login');
 })->name('home');
 
-// Dashboard general protegido
+// Dashboard general protegido (todos los autenticados)
 Route::get('dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-// Configuración de usuario autenticado
+// Dashboard admin explícito (solo admin debería ver este enlace)
+Route::middleware(['auth', 'can:user.manage'])->group(function () {
+    Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
+});
+
+// Configuración de usuario autenticado (Livewire)
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
     Route::get('settings/profile', \App\Livewire\Settings\Profile::class)->name('settings.profile');
@@ -26,12 +31,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', \App\Livewire\Settings\Appearance::class)->name('settings.appearance');
 });
 
-// Rutas solo para administrador
+// Rutas para campañas y plantillas (publicista y admin)
 Route::middleware(['auth'])->group(function () {
-    // Dashboard admin
-    Route::get('/admin', [DashboardController::class, 'index'])
-        ->name('admin.dashboard');
-
     // Campañas
     Route::get('/campanas', [CampaignController::class, 'index'])->name('campaigns.index');
     Route::get('/campanas/crear', [CampaignController::class, 'create'])->name('campaigns.create');
@@ -40,6 +41,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/campanas/{campaign}/editar', [CampaignController::class, 'edit'])->name('campaigns.edit');
     Route::put('/campanas/{campaign}', [CampaignController::class, 'update'])->name('campaigns.update');
 
+    // Plantillas
+    Route::get('/plantillas', [TemplateController::class, 'index'])->name('templates.index');
+    Route::get('/plantillas/crear', [TemplateController::class, 'create'])->name('templates.create');
+    Route::post('/plantillas', [TemplateController::class, 'store'])->name('templates.store');
+    Route::get('/plantillas/{template}/editar', [TemplateController::class, 'edit'])->name('templates.edit');
+    Route::put('/plantillas/{template}', [TemplateController::class, 'update'])->name('templates.update');
+    Route::put('/plantillas/{template}/deshabilitar', [TemplateController::class, 'disable'])->name('templates.disable');
+    Route::put('/plantillas/{template}/habilitar', [TemplateController::class, 'enable'])->name('templates.enable');
+});
+
+// Rutas solo para administrador (protege con 'can:user.manage')
+Route::middleware(['auth', 'can:user.manage'])->group(function () {
     // Usuarios
     Route::get('/usuarios', [UserController::class, 'index'])->name('users.index');
     Route::get('/usuarios/crear', [UserController::class, 'create'])->name('users.create');
@@ -50,23 +63,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/usuarios/{user}/activar', [UserController::class, 'enable'])->name('users.enable');
 
     // Reportes
-    Route::get('/reportes', [\App\Http\Controllers\ReportController::class, 'index'])->name('reports.index');
-    Route::get('/reportes/{id}', [\App\Http\Controllers\ReportController::class, 'show'])->name('reports.show');
+    Route::get('/reportes', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reportes/{id}', [ReportController::class, 'show'])->name('reports.show');
 
-    // Plantillas (rutas personalizadas en español)
-    Route::get('/plantillas', [TemplateController::class, 'index'])->name('templates.index');
-    Route::get('/plantillas/crear', [TemplateController::class, 'create'])->name('templates.create');
-    Route::post('/plantillas', [TemplateController::class, 'store'])->name('templates.store');
-    Route::get('/plantillas/{template}/editar', [TemplateController::class, 'edit'])->name('templates.edit');
-    Route::put('/plantillas/{template}', [TemplateController::class, 'update'])->name('templates.update');
-    Route::put('/plantillas/{template}/deshabilitar', [TemplateController::class, 'disable'])->name('templates.disable');
-    Route::put('/plantillas/{template}/habilitar', [TemplateController::class, 'enable'])->name('templates.enable');
-
-    // Registros
+    // Registros (logs)
     Route::get('/registros', [\App\Http\Controllers\LogController::class, 'index'])->name('logs.index');
 });
 
-// Rutas para la carga de archivos Trix
+// Rutas para la carga de archivos Trix (si aplica a ambos roles)
 Route::post('/trix-upload', [TrixUploadController::class, 'store'])->name('trix.upload');
 
 // Rutas para ajustes de la aplicación
