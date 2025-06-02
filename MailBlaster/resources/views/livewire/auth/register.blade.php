@@ -1,62 +1,81 @@
-<div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Create an account')" :description="__('Enter your details below to create your account')" />
-
-    <!-- Session Status -->
-    <x-auth-session-status class="text-center" :status="session('status')" />
-
-    <form wire:submit="register" class="flex flex-col gap-6">
-        <!-- Name -->
-        <flux:input
-            wire:model="name"
-            :label="__('Name')"
-            type="text"
-            required
-            autofocus
-            autocomplete="name"
-            :placeholder="__('Full name')"
-        />
-
-        <!-- Email Address -->
-        <flux:input
-            wire:model="email"
-            :label="__('Email address')"
-            type="email"
-            required
-            autocomplete="email"
-            placeholder="email@example.com"
-        />
-
-        <!-- Password -->
-        <flux:input
-            wire:model="password"
-            :label="__('Password')"
-            type="password"
-            required
-            autocomplete="new-password"
-            :placeholder="__('Password')"
-            viewable
-        />
-
-        <!-- Confirm Password -->
-        <flux:input
-            wire:model="password_confirmation"
-            :label="__('Confirm password')"
-            type="password"
-            required
-            autocomplete="new-password"
-            :placeholder="__('Confirm password')"
-            viewable
-        />
-
-        <div class="flex items-center justify-end">
-            <flux:button type="submit" variant="primary" class="w-full">
-                {{ __('Create account') }}
-            </flux:button>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1 class="auth-title">Create an account</h1>
+            <p class="auth-description">Enter your details below to create your account</p>
         </div>
-    </form>
 
-    <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
-        {{ __('Already have an account?') }}
-        <flux:link :href="route('login')" wire:navigate>{{ __('Log in') }}</flux:link>
+        <!-- Session Status -->
+        <x-auth-session-status class="auth-session-status" :status="session('status')" />
+
+        <form wire:submit="register" class="auth-form">
+            <!-- Name -->
+            <div class="auth-input-container">
+                <label for="name" class="auth-input-label">Full name</label>
+                <input
+                    wire:model="name"
+                    id="name"
+                    type="text"
+                    class="auth-input"
+                    required
+                    autofocus
+                    autocomplete="name"
+                    placeholder="John Doe"
+                />
+                @error('name') <span class="auth-error-message">{{ $message }}</span> @enderror
+            </div>
+
+            <!-- Email Address -->
+            <div class="auth-input-container">
+                <label for="email" class="auth-input-label">Email address</label>
+                <input
+                    wire:model="email"
+                    id="email"
+                    type="email"
+                    class="auth-input"
+                    required
+                    autocomplete="email"
+                    placeholder="email@example.com"
+                />
+                @error('email') <span class="auth-error-message">{{ $message }}</span> @enderror
+            </div>
+
+            <!-- Password -->
+            <div class="auth-input-container">
+                <label for="password" class="auth-input-label">Password</label>
+                <input
+                    wire:model="password"
+                    id="password"
+                    type="password"
+                    class="auth-input"
+                    required
+                    autocomplete="new-password"
+                    placeholder="••••••••"
+                />
+                @error('password') <span class="auth-error-message">{{ $message }}</span> @enderror
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="auth-input-container">
+                <label for="password_confirmation" class="auth-input-label">Confirm password</label>
+                <input
+                    wire:model="password_confirmation"
+                    id="password_confirmation"
+                    type="password"
+                    class="auth-input"
+                    required
+                    autocomplete="new-password"
+                    placeholder="••••••••"
+                />
+            </div>
+
+            <button type="submit" class="auth-button">
+                Create account
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            Already have an account? <a href="{{ route('login') }}" class="auth-link">Log in</a>
+        </div>
     </div>
 </div>

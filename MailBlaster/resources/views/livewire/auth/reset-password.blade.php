@@ -1,45 +1,60 @@
-<div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Reset password')" :description="__('Please enter your new password below')" />
-
-    <!-- Session Status -->
-    <x-auth-session-status class="text-center" :status="session('status')" />
-
-    <form wire:submit="resetPassword" class="flex flex-col gap-6">
-        <!-- Email Address -->
-        <flux:input
-            wire:model="email"
-            :label="__('Email')"
-            type="email"
-            required
-            autocomplete="email"
-        />
-
-        <!-- Password -->
-        <flux:input
-            wire:model="password"
-            :label="__('Password')"
-            type="password"
-            required
-            autocomplete="new-password"
-            :placeholder="__('Password')"
-            viewable
-        />
-
-        <!-- Confirm Password -->
-        <flux:input
-            wire:model="password_confirmation"
-            :label="__('Confirm password')"
-            type="password"
-            required
-            autocomplete="new-password"
-            :placeholder="__('Confirm password')"
-            viewable
-        />
-
-        <div class="flex items-center justify-end">
-            <flux:button type="submit" variant="primary" class="w-full">
-                {{ __('Reset password') }}
-            </flux:button>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1 class="auth-title">Reset password</h1>
+            <p class="auth-description">Please enter your new password below</p>
         </div>
-    </form>
+
+        <!-- Session Status -->
+        <x-auth-session-status class="auth-session-status" :status="session('status')" />
+
+        <form wire:submit="resetPassword" class="auth-form">
+            <!-- Email Address -->
+            <div class="auth-input-container">
+                <label for="email" class="auth-input-label">Email</label>
+                <input
+                    wire:model="email"
+                    id="email"
+                    type="email"
+                    class="auth-input"
+                    required
+                    autocomplete="email"
+                />
+                @error('email') <span class="auth-error-message">{{ $message }}</span> @enderror
+            </div>
+
+            <!-- Password -->
+            <div class="auth-input-container">
+                <label for="password" class="auth-input-label">Password</label>
+                <input
+                    wire:model="password"
+                    id="password"
+                    type="password"
+                    class="auth-input"
+                    required
+                    autocomplete="new-password"
+                    placeholder="••••••••"
+                />
+                @error('password') <span class="auth-error-message">{{ $message }}</span> @enderror
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="auth-input-container">
+                <label for="password_confirmation" class="auth-input-label">Confirm password</label>
+                <input
+                    wire:model="password_confirmation"
+                    id="password_confirmation"
+                    type="password"
+                    class="auth-input"
+                    required
+                    autocomplete="new-password"
+                    placeholder="••••••••"
+                />
+            </div>
+
+            <button type="submit" class="auth-button">
+                Reset password
+            </button>
+        </form>
+    </div>
 </div>

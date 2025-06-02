@@ -8,7 +8,10 @@
     </button>
 
     <h1 class="text-xl font-bold">
-        <span class="bg-white text-blue-600 px-2 py-1 rounded mr-1">Mail</span>Blaster Admin
+        <span class="bg-white text-blue-600 px-2 py-1 rounded mr-1">Mail</span>Blaster
+        <span class="ml-1 text-sm font-normal align-middle">
+            {{ Auth::user()->hasRole('administrador') ? 'Admin' : 'Publicista' }}
+        </span>
     </h1>
 
     <div class="flex items-center gap-4">
