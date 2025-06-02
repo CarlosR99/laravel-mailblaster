@@ -32,7 +32,7 @@
                 </svg>
                 <input type="text" name="search" value="{{ request('search') }}"
                     placeholder="Buscar por nombre, email o rol..."
-                    class="form-input pl-10">
+                    class="form-input search-input">
             </div>
             <button type="submit" class="btn-primary px-6">
                 Buscar
