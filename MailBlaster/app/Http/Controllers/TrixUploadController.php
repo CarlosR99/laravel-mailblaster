@@ -9,11 +9,13 @@ class TrixUploadController extends Controller
     public function store(Request $request)
     {
         if ($request->hasFile('attachment')) {
-            $path = $request->file('attachment')->store('trix_images', 'public');
+            $folder = $request->input('folder', 'trix_images'); // Por defecto plantillas
+            $path = $request->file('attachment')->store($folder, 'public');
             return [
                 'success' => 1,
                 'file' => [
-                    'url' => asset('storage/' . $path)
+                    'url' => asset('storage/' . $path),
+                    'path' => $path
                 ]
             ];
         }

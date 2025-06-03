@@ -50,6 +50,7 @@ document.getElementById('image-upload').addEventListener('change', function(e) {
     if (!file) return;
     const form = new FormData();
     form.append('attachment', file);
+    form.append('folder', 'campaign_images'); // Indica que es para campañas
 
     fetch("{{ route('trix.upload') }}", {
         method: "POST",
