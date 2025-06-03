@@ -8,13 +8,16 @@
 <body
     class="min-h-screen bg-gray-50 text-gray-900 flex flex-col"
     x-data="{
-        sidebarOpen: JSON.parse(localStorage.getItem('sidebarOpen')) ?? (window.innerWidth >= 1024),
+        sidebarOpen: false,
         toggleSidebar() {
             this.sidebarOpen = !this.sidebarOpen;
-            localStorage.setItem('sidebarOpen', JSON.stringify(this.sidebarOpen));
         }
     }"
-    x-init="$watch('sidebarOpen', value => localStorage.setItem('sidebarOpen', JSON.stringify(value)))"
+    x-init="
+        window.addEventListener('resize', () => {
+            if(window.innerWidth < 1024) sidebarOpen = false;
+        });
+    "
     x-cloak
 >
     @include('partials.navbar')

@@ -11,10 +11,10 @@ class EventServiceProvider extends ServiceProvider
 {
     protected $listen = [
         Login::class => [
-            [LogAuthenticationEvents::class, 'handleLogin'],
+            LogAuthenticationEvents::class,
         ],
         Logout::class => [
-            [LogAuthenticationEvents::class, 'handleLogout'],
+            LogAuthenticationEvents::class,
         ],
     ];
 
