@@ -22,20 +22,12 @@
     <div>
         <label class="form-label">Imagen personalizada</label>
         <input type="file" id="image-upload" accept="image/*" class="file-upload">
-        <input type="hidden" name="image_path" id="image-path" value="{{ old('image_path', $campaign->image_path ?? '') }}">
         <p class="text-sm text-slate-500 mt-1">Opcional. Reemplaza la imagen de la plantilla</p>
         <img id="preview-image"
              src="{{ old('image_path') ? asset('storage/' . old('image_path')) : (isset($campaign) && $campaign->image_path ? asset('storage/' . $campaign->image_path) : '') }}"
-             class="h-20 rounded-lg border border-slate-200 mt-2 {{ old('image_path') || (isset($campaign) && $campaign->image_path) ? '' : 'hidden' }}"
-             alt="Vista previa">
-        @if(isset($campaign) && $campaign->image_path)
-            <div class="mt-4 flex items-center">
-                <div class="ml-4">
-                    <p class="text-sm text-slate-700">Imagen actual</p>
-                    <p class="text-xs text-slate-500 mt-1">{{ basename($campaign->image_path) }}</p>
-                </div>
-            </div>
-        @endif
+             class="{{ old('image_path') || (isset($campaign) && $campaign->image_path) ? '' : 'hidden' }}"
+             style="max-width: 300px; border-radius: 8px;">
+        <input type="hidden" name="image_path" id="image-path" value="{{ old('image_path', $campaign->image_path ?? '') }}">
     </div>
     
     <div>
@@ -68,9 +60,8 @@ document.getElementById('image-upload').addEventListener('change', function(e) {
     })
     .then(response => response.json())
     .then(result => {
-        if (result.success && result.file && result.file.url) {
-            // Guarda la URL absoluta, no el path relativo
-            document.getElementById('image-path').value = result.file.url;
+        if (result.success && result.file && result.file.url && result.file.path) {
+            document.getElementById('image-path').value = result.file.path; // SOLO el path relativo
             document.getElementById('preview-image').src = result.file.url;
             document.getElementById('preview-image').classList.remove('hidden');
         } else {
