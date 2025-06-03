@@ -9,7 +9,9 @@
     <div style="background: #fff; border-radius: 8px; padding: 24px; display: inline-block;">
         <h1>{{ $campaign->name }}</h1>
         @if($campaign->image_path)
-            <img src="{{ asset('storage/' . $campaign->image_path) }}" alt="Imagen de campaña" style="max-width:100%; border-radius:8px;">
+            <a href="{{ $campaign->image_path }}" target="_blank">
+                <img src="{{ $campaign->image_path }}" alt="Imagen de campaña" style="max-width:100%; border-radius:8px;">
+            </a>
         @endif
         <div>
             {!! $campaign->content ?? '' !!}

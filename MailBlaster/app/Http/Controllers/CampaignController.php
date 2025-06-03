@@ -30,18 +30,17 @@ class CampaignController extends Controller
             'name' => 'required|string|max:255',
             'recipients_csv' => 'required|file|mimes:csv,txt',
             'template_id' => 'nullable|exists:templates,id',
-            'image' => 'nullable|image|max:2048',
+            'image_path' => 'nullable|string', // Cambia aquí
         ]);
 
-        if (!$request->template_id && !$request->hasFile('image')) {
+        if (!$request->template_id && !$request->image_path) {
             return back()->withErrors(['template_id' => 'Debe seleccionar una plantilla o subir una imagen.'])->withInput();
         }
 
-        $imagePath = null;
+        $imagePath = $request->image_path ?: null;
         $templateId = $request->template_id;
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('campaign_images', 'public');
+        if ($imagePath) {
             $templateId = null;
         }
 
