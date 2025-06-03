@@ -21,28 +21,22 @@ class LogAuthenticationEvents
      */
     public function handle(object $event): void
     {
-        //
-    }
-
-    public function handleLogin(Login $event)
-    {
-        SystemLog::create([
-            'user_id' => $event->user->id,
-            'entity_type' => 'user',
-            'entity_id' => $event->user->id,
-            'action' => 'login',
-            'description' => 'Inicio de sesión',
-        ]);
-    }
-
-    public function handleLogout(Logout $event)
-    {
-        SystemLog::create([
-            'user_id' => $event->user->id,
-            'entity_type' => 'user',
-            'entity_id' => $event->user->id,
-            'action' => 'logout',
-            'description' => 'Cierre de sesión',
-        ]);
+        if ($event instanceof Login) {
+            SystemLog::create([
+                'user_id' => $event->user->id,
+                'entity_type' => 'user',
+                'entity_id' => $event->user->id,
+                'action' => 'login',
+                'description' => 'Inicio de sesión',
+            ]);
+        } elseif ($event instanceof Logout) {
+            SystemLog::create([
+                'user_id' => $event->user->id,
+                'entity_type' => 'user',
+                'entity_id' => $event->user->id,
+                'action' => 'logout',
+                'description' => 'Cierre de sesión',
+            ]);
+        }
     }
 }
